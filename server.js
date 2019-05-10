@@ -8,11 +8,8 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
-var friends = require('./app/data/friends');
 require('./app/routing/apiRoutes')(app);
 require('./app/routing/htmlRoutes')(app);
-
-console.log(friends);
 
 app.listen(PORT, function() {
   console.log(`Now listening on port:${PORT}`);

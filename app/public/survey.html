@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>「フレンド・ファインダー」Survey</title>
+</head>
+
+<body>
+    <style>
+        .hide {
+            display: none !important;
+        }
+    </style>
+    <div class="container">
+        <h1>Survey Questions</h1>
+        <hr>
+        <h3><b>About You</b></h3>
+        <p style="display:inline-block">Name (Required)</p>
+        <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
+        <input id="nameInput" type="text" class="form-control">
+        <p style="display:inline-block">Link to Photo Image (Required)</p>
+        <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
+        <input id="photoInput" type="text" class="form-control">
+        <hr>
+        <!-- 
+            QUESTIONS
+         -->
+        <h3><b>Question 1</b></h3>
+        <p style="display:inline-block">I see twelve crows on a powerline and consider it an auspicious omen.</p>
+        <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
+        <select class="custom-select custom-select-sm">
+            <option selected>Select an Option</option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+        </select>
+        <h3><b>Question 2</b></h3>
+        <p style="display:inline-block">My mind runs abuzz with words unable to be spoken.</p>
+        <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
+        <select class="custom-select custom-select-sm">
+            <option selected>Select an Option</option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+        </select>
+        <h3><b>Question 3</b></h3>
+        <p style="display:inline-block">When I close my eyes I see through the coarse fabric of this reality.</p>
+        <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
+        <select class="custom-select custom-select-sm">
+            <option selected>Select an Option</option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+        </select>
+        <h3><b>Question 4</b></h3>
+        <p style="display:inline-block">Breakfast can be eaten at any time.</p>
+        <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
+        <select class="custom-select custom-select-sm">
+            <option selected>Select an Option</option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+        </select>
+        <h3><b>Question 5</b></h3>
+        <p style="display:inline-block">In the beginning the Gods looked down upon their creations and wept.</p>
+        <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
+        <select class="custom-select custom-select-sm">
+            <option selected>Select an Option</option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+        </select>
+
+        <button id="surveySubmit" class="btn btn-primary btn-lg" style="margin-top: 20px">
+            <i class="fas fa-check"></i>
+            Submit Survey
+        </button>
+
+        <!-- 
+            MODALS
+         -->
+        <div id="infoModal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+        SCRIPTS
+     -->
+    <script>
+        var surveyData = {
+            name: "",
+            photo: "",
+            scores: []
+        }
+        $("#surveySubmit").on("click", function (e) {
+            if ($("#nameInput").val() && $("#photoInput").val()) {
+                if (!$(".error:eq(0)").hasClass("hide")) {
+                    $(".error:eq(0)").toggleClass("hide");
+                }
+                if (!$(".error:eq(1)").hasClass("hide")) {
+                    $(".error:eq(1)").toggleClass("hide");
+                }
+
+                surveyData.name = $("#nameInput").val();
+                surveyData.scores = $("#photoInput").val();
+            } else {
+                if (!$("#nameInput").val() && $(".error:eq(0)").hasClass("hide")) {
+                    $(".error:eq(0)").toggleClass("hide");
+                } else if ($("#nameInput").val()) {
+                    if (!$(".error:eq(0)").hasClass("hide")) {
+                        $(".error:eq(0)").toggleClass("hide");
+                    }
+                }
+
+                if (!$("photoInput").val() && $(".error:eq(1)").hasClass("hide")) {
+                    $(".error:eq(1)").toggleClass("hide");
+                } else if ($("#photoInput").val()) {
+                    if (!$(".error:eq(1)").hasClass("hide")) {
+                        $(".error:eq(1)").toggleClass("hide");
+                    }
+                }
+            }
+
+            evaluateScores();
+        });
+
+        function evaluateScores() {
+            surveyData.scores = [];
+            var questions = $(".custom-select");
+
+            for (var i = 0; i < questions.length; i++) {
+
+                if (questions[i].selectedIndex === 0) {
+                    if ($(`.error:eq(${i + 2})`).hasClass("hide")) {
+                        $(`.error:eq(${i + 2})`).toggleClass("hide");
+                    }
+                } else {
+                    if (!$(`.error:eq(${i + 2})`).hasClass("hide")) {
+                        $(`.error:eq(${i + 2})`).toggleClass("hide");
+                    }
+
+                    surveyData.scores.push(questions[i].selectedIndex);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
