@@ -7,18 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./assets/CSS/style.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" defer></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" defer></script>
+    <script src="./assets/js/surveyScript.js" defer></script>
     <title>「フレンド・ファインダー」Survey</title>
 </head>
 
 <body>
-    <style>
-        .hide {
-            display: none !important;
-        }
-    </style>
     <div class="container">
         <h1>Survey Questions</h1>
         <hr>
@@ -30,6 +27,7 @@
         <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
         <input id="photoInput" type="text" class="form-control">
         <hr>
+
         <!-- 
             QUESTIONS
          -->
@@ -67,7 +65,7 @@
             <option value="5">5 (Strongly Agree)</option>
         </select>
         <h3><b>Question 4</b></h3>
-        <p style="display:inline-block">Breakfast can be eaten at any time.</p>
+        <p style="display:inline-block">Breakfast can be eaten at any time of the day.</p>
         <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
         <select class="custom-select custom-select-sm">
             <option selected>Select an Option</option>
@@ -79,6 +77,61 @@
         </select>
         <h3><b>Question 5</b></h3>
         <p style="display:inline-block">In the beginning the Gods looked down upon their creations and wept.</p>
+        <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
+        <select class="custom-select custom-select-sm">
+            <option selected>Select an Option</option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+        </select>
+        <h3><b>Question 6</b></h3>
+        <p style="display:inline-block">When we sleep our minds explore worlds immemorial and beyond comprehension.</p>
+        <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
+        <select class="custom-select custom-select-sm">
+            <option selected>Select an Option</option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+        </select>
+        <h3><b>Question 7</b></h3>
+        <p style="display:inline-block">The shackles binding us to this mortal coil hinder us from true expansion.</p>
+        <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
+        <select class="custom-select custom-select-sm">
+            <option selected>Select an Option</option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+        </select>
+        <h3><b>Question 8</b></h3>
+        <p style="display:inline-block">Empty eyes alight, we wander these lands, ravenous.</p>
+        <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
+        <select class="custom-select custom-select-sm">
+            <option selected>Select an Option</option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+        </select>
+        <h3><b>Question 9</b></h3>
+        <p style="display:inline-block">Let us in.</p>
+        <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
+        <select class="custom-select custom-select-sm">
+            <option selected>Select an Option</option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+        </select>
+        <h3><b>Question 10</b></h3>
+        <p style="display:inline-block">Cats are better than dogs</p>
         <p class="hide error" style="display: inline-block; color: red">*Required Field</p>
         <select class="custom-select custom-select-sm">
             <option selected>Select an Option</option>
@@ -101,79 +154,18 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <h5 class="modal-title">Results</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
+                        <p></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- 
-        SCRIPTS
-     -->
-    <script>
-        var surveyData = {
-            name: "",
-            photo: "",
-            scores: []
-        }
-        $("#surveySubmit").on("click", function (e) {
-            if ($("#nameInput").val() && $("#photoInput").val()) {
-                if (!$(".error:eq(0)").hasClass("hide")) {
-                    $(".error:eq(0)").toggleClass("hide");
-                }
-                if (!$(".error:eq(1)").hasClass("hide")) {
-                    $(".error:eq(1)").toggleClass("hide");
-                }
-
-                surveyData.name = $("#nameInput").val();
-                surveyData.scores = $("#photoInput").val();
-            } else {
-                if (!$("#nameInput").val() && $(".error:eq(0)").hasClass("hide")) {
-                    $(".error:eq(0)").toggleClass("hide");
-                } else if ($("#nameInput").val()) {
-                    if (!$(".error:eq(0)").hasClass("hide")) {
-                        $(".error:eq(0)").toggleClass("hide");
-                    }
-                }
-
-                if (!$("photoInput").val() && $(".error:eq(1)").hasClass("hide")) {
-                    $(".error:eq(1)").toggleClass("hide");
-                } else if ($("#photoInput").val()) {
-                    if (!$(".error:eq(1)").hasClass("hide")) {
-                        $(".error:eq(1)").toggleClass("hide");
-                    }
-                }
-            }
-
-            evaluateScores();
-        });
-
-        function evaluateScores() {
-            surveyData.scores = [];
-            var questions = $(".custom-select");
-
-            for (var i = 0; i < questions.length; i++) {
-
-                if (questions[i].selectedIndex === 0) {
-                    if ($(`.error:eq(${i + 2})`).hasClass("hide")) {
-                        $(`.error:eq(${i + 2})`).toggleClass("hide");
-                    }
-                } else {
-                    if (!$(`.error:eq(${i + 2})`).hasClass("hide")) {
-                        $(`.error:eq(${i + 2})`).toggleClass("hide");
-                    }
-
-                    surveyData.scores.push(questions[i].selectedIndex);
-                }
-            }
-        }
-    </script>
 </body>
 
 </html>
