@@ -1,0 +1,25 @@
+{
+  "name": "Furendo-Fainda",
+  "version": "1.0.0",
+  "description": "「フレンド・ファインダー」is a web app to identify how compatible you are with other people based on a simple survey.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Slowpossum/Furendo-Fainda.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Slowpossum/Furendo-Fainda/issues"
+  },
+  "homepage": "https://github.com/Slowpossum/Furendo-Fainda#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "path": "^0.12.7"
+  }
+}
