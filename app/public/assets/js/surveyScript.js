@@ -40,15 +40,31 @@ $("#surveySubmit").on("click", function (e) {
             method: 'GET',
             url: '/api/friends'
         }).then(function (data) {
+            $("#infoModal .modal-body").empty();
+
             if (data.length > 0) {
                 var bestFriend = evaluateFriendship(data, surveyData);
+                
+                if (bestFriend.length === 1) {
+                    var bestFriendData = $("<p>").text(`Your best friend is ${bestFriend[0].name} with a difference of ${bestFriend[0].diff} points!`);
+                    $("#infoModal .modal-body").append(bestFriendData);
+                    $("#infoModal").modal(focus);
+                } else {
+                    var bestFriendData = $("<p>").text("You have more than one best friend!");
+                    var bestFriendList = $("<ul>");
+                    for (friend of bestFriend) {
+                        var currFriend = $("<li>").text(friend.name);
+                        bestFriendList.append(currFriend);
+                    }
+                    var closer = $("<p>").text(`All with a difference of ${bestFriend[0].diff} points!`);
 
-                var bestFriendData = $("<p>").text(`Your best friend is ${bestFriend.name} with a difference of ${bestFriend.diff}!`);
-                $("#infoModal .modal-body p").replaceWith(bestFriendData);
-                $("#infoModal").modal(focus);
-                // resetAll();
+                    $("#infoModal .modal-body").append(bestFriendData, bestFriendList, closer);
+                    $("#infoModal").modal(focus);
+                }
+                
+                resetAll();
             } else {
-                $("#infoModal .modal-body p").replaceWith("<p>No users to compare results with.</p>");
+                $("#infoModal .modal-body").append("<p>No users to compare results with.</p>");
                 $("#infoModal").modal(focus);
             }
 
@@ -57,7 +73,6 @@ $("#surveySubmit").on("click", function (e) {
                 url: 'api/friends',
                 data: surveyData
             }).then(function (data) {
-                console.log(data);
                 console.log("User added to user list.");
             });
         });
@@ -92,17 +107,24 @@ function evaluateFriendship(friends, surveyData) {
     }];
 
     for (user of friends) {
-        var diff = 0;
+        console.log("tick");
+        var currDiff = 0;
 
         for (question in user.scores) {
-            diff += Math.abs(user.scores[question] - surveyData.scores[question]);
+            currDiff += Math.abs(user.scores[question] - surveyData.scores[question]);
         }
 
-        if (diff < currBestFriend.diff) {
-            currBestFriend.name = user.name;
-            currBestFriend.diff = diff;
-        } else if (diff === currBestFriend.diff) {
-            //asdfasgkjashdflawsjdhf
+        if (currDiff < currBestFriend[0].diff) {
+            currBestFriend = [{
+                name: user.name,
+                diff: currDiff
+            }];
+        } else if (currDiff === currBestFriend[0].diff) {
+            var addFriend = {
+                name: user.name,
+                diff: currDiff
+            };
+            currBestFriend.push(addFriend);
         }
     }
 
